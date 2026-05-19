@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* You can customize your theme here if needed */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-gray-50);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: var(--color-blue-600);
+    color: white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-blue-700);
+  }
+  
+  .btn-secondary {
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-800);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+    font-weight: 500;
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--color-gray-300);
+  }
+  
+  .btn-danger {
+    background-color: var(--color-red-600);
+    color: white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+    font-weight: 500;
+  }
+  
+  .btn-danger:hover {
+    background-color: var(--color-red-700);
+  }
+  
+  .input-field {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-width: 1px;
+    border-color: var(--color-gray-300);
+    border-radius: 0.5rem;
+    outline: none;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  
+  .input-field:focus {
+    --tw-ring-color: var(--color-blue-500);
+    border-color: transparent;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 1.5rem;
+  }
+}
