@@ -110,7 +110,7 @@ def send_email_otp(email, otp_code, purpose):
                 <p>If you didn't request this, please ignore this email.</p>
             </div>
             <div class="footer">
-                <p>&copy; 2024 Ortho Wallet. All rights reserved.</p>
+                <p>&copy; 2026 Ortho Wallet. All rights reserved.</p>
             </div>
         </div>
     </body>
@@ -128,10 +128,10 @@ def send_email_otp(email, otp_code, purpose):
             html_message=html_message,
             fail_silently=False,
         )
-        print(f"✅ Email sent successfully to {email}")
+        print(f" Email sent successfully to {email}")
         return True
     except Exception as e:
-        print(f"❌ Failed to send email to {email}: {str(e)}")
+        print(f" Failed to send email to {email}: {str(e)}")
         # Fallback to console output for development
         print(f"\n{'='*50}")
         print(f"OTP SIMULATION (Email Failed)")
