@@ -1,96 +1,31 @@
-@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@theme {
-  /* You can customize your theme here if needed */
-}
 
 @layer base {
   body {
-    background-color: var(--color-gray-50);
+    @apply bg-gray-50;
   }
 }
 
 @layer components {
   .btn-primary {
-    background-color: var(--color-blue-600);
-    color: white;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-    font-weight: 500;
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--color-blue-700);
+    @apply bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium;
   }
   
   .btn-secondary {
-    background-color: var(--color-gray-200);
-    color: var(--color-gray-800);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-    font-weight: 500;
-  }
-  
-  .btn-secondary:hover {
-    background-color: var(--color-gray-300);
+    @apply bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-300 transition-all duration-200 font-medium;
   }
   
   .btn-danger {
-    background-color: var(--color-red-600);
-    color: white;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-    font-weight: 500;
-  }
-  
-  .btn-danger:hover {
-    background-color: var(--color-red-700);
+    @apply bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 font-medium;
   }
   
   .input-field {
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-width: 1px;
-    border-color: var(--color-gray-300);
-    border-radius: 0.5rem;
-    outline: none;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
-  
-  .input-field:focus {
-    --tw-ring-color: var(--color-blue-500);
-    border-color: transparent;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200;
   }
   
   .card {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    padding: 1.5rem;
+    @apply bg-white rounded-lg shadow-md p-6;
   }
 }

@@ -4,6 +4,7 @@ import environ
 from datetime import timedelta
 import dj_database_url
 
+# Initialize environment variables
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -12,7 +13,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY', default='1234')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env.bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
     'localhost', 
@@ -22,6 +23,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
     'ortho-wallet-backend.onrender.com'
 ])
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,13 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'whitenoise.runserver_nostatic',  # Add whitenoise for static files
     'apps.authentication',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add whitenoise middleware
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,34 +67,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ortho_wallet.wsgi.application'
 
-# Database Configuration - Use environment variable or fallback to NeonDB
-DATABASE_URL = env('DATABASE_URL', default=None)
+# Database Configuration - NeonDB PostgreSQL
+DATABASES = {
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
-if DATABASE_URL:
-    # Production database (Render PostgreSQL)
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
-    }
-else:
-    # Development database (NeonDB)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('DB_NAME', default='neondb'),
-            'USER': env('DB_USER', default='neondb_owner'),
-            'PASSWORD': env('DB_PASSWORD', default='npg_cLRhfAnl89dQ'),
-            'HOST': env('DB_HOST', default='ep-dark-hall-aps9i773-pooler.c-7.us-east-1.aws.neon.tech'),
-            'PORT': env('DB_PORT', default='5432'),
-            'OPTIONS': {
-                'sslmode': 'require',
-            },
-        }
-    }
-
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -110,6 +92,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -118,7 +101,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'
@@ -156,6 +138,7 @@ else:
     CORS_ALLOW_ALL_ORIGINS = False
     CORS_ALLOW_CREDENTIALS = True
 
+# Custom User Model
 AUTH_USER_MODEL = 'authentication.User'
 
 # JWT Settings
@@ -166,14 +149,20 @@ JWT_EXPIRATION_DELTA = timedelta(hours=24)
 # OTP Settings
 OTP_EXPIRATION_MINUTES = 10
 
-# Email Configuration
+# =============== EMAIL CONFIGURATION - GMAIL SMTP ===============
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = env.int('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='tasdidanpreome@gmail.com')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='zkvrpflipxyooosh')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+
+# Optional email settings
+EMAIL_USE_SSL = False
+EMAIL_TIMEOUT = 30
+# ================================================================
 
 # Security settings for production
 if not DEBUG:
